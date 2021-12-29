@@ -8,6 +8,10 @@
 import UIKit
 
 class OnboardingViewController: UIViewController {
+    
+    let heroImageName: String
+    let titleText: String
+    
     let stackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
@@ -20,7 +24,6 @@ class OnboardingViewController: UIViewController {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "delorean")
         return imageView
     }()
     
@@ -28,12 +31,21 @@ class OnboardingViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-        label.text = "Bankey is faster, easier to use, and has a brand new look and feel that will make you feel like you are back in 1989."
         label.numberOfLines = 0
         label.adjustsFontForContentSizeCategory = true
         label.font = UIFont.preferredFont(forTextStyle: .title3)
         return label
     }()
+    
+    init(heroImageName: String, titleText: String){
+        self.heroImageName = heroImageName
+        self.titleText = titleText
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +57,9 @@ class OnboardingViewController: UIViewController {
 extension OnboardingViewController {
     
     func style() {
-        
+        view.backgroundColor = .systemBackground
+        imageView.image = UIImage(named: heroImageName)
+        label.text = titleText
     }
     
     func layout() {
