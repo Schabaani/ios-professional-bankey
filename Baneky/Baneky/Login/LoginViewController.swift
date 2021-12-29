@@ -7,8 +7,17 @@
 
 import UIKit
 
+protocol LoginViewControllerDelegate: AnyObject {
+    func didLogin()
+}
+
+protocol LogoutDelegate: AnyObject {
+    func didLogout()
+}
+
 class LoginViewController: UIViewController {
     
+    weak var delegate:LoginViewControllerDelegate?
     let loginView = LoginView()
     
     let signInButton: UIButton = {
@@ -44,6 +53,12 @@ class LoginViewController: UIViewController {
         
         style()
         layout()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        loginView.passwordTextField.text = ""
+        loginView.usernameTextField.text = ""
     }
     
 }
@@ -119,6 +134,6 @@ extension LoginViewController {
     }
     
     private func signIn() {
-        
+        delegate?.didLogin()
     }
 }
